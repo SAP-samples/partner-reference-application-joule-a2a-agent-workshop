@@ -1,0 +1,21 @@
+# Secrets — never commit
+.env
+.cdsrc-private.json
+
+# Build output
+gen/
+mta_archives/
+*.mtar
+Makefile_*.mta
+
+# Dependencies
+node_modules/
+@cds-models/
+
+# Compiled output (TypeScript source is the source of truth)
+srv/**/*.js
+srv/**/*.js.map
+
+# OS / editor
+.DS_Store
+*.log
