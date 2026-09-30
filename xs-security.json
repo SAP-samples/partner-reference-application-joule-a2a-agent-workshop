@@ -1,0 +1,9 @@
+{
+  "xsappname": "psm-joule-agent",
+  "tenant-mode": "dedicated",
+  "scopes": [],
+  "role-templates": [],
+  "oauth2-configuration": {
+    "credential-types": ["binding-secret"]
+  }
+}

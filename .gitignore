@@ -1,21 +1,25 @@
-# Secrets — never commit
-.env
-.cdsrc-private.json
+# Dependencies
+node_modules/
 
-# Build output
+# Environment / Secrets
+.env
+
+# Build artifacts
 gen/
 mta_archives/
 *.mtar
-Makefile_*.mta
 
-# Dependencies
-node_modules/
-@cds-models/
+# Debug / Temp files
+joule-capability/debug-deploy-*.json
+joule-capability/.temp/
 
-# Compiled output (TypeScript source is the source of truth)
-srv/**/*.js
-srv/**/*.js.map
+# IDE
+.vscode/
+.idea/
 
-# OS / editor
+# OS files
 .DS_Store
-*.log
+Thumbs.db
+
+# CDS build output
+default-env.json

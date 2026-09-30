@@ -1,0 +1,50 @@
+_schema-version: 3.3.0
+ID: psm-joule-agent
+version: 1.0.0
+description: "A2A agent on CAP"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: psm-joule-agent-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci --omit=dev
+      ignore:
+        - node_modules
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-uri}
+    requires:
+      - name: generative-ai-hub
+      - name: destination-service
+      - name: psm-joule-agent-uaa
+
+resources:
+  - name: generative-ai-hub
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended
+  - name: destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: psm-joule-agent-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json

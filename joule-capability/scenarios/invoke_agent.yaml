@@ -1,0 +1,22 @@
+description: >
+  Everything related to poetry slams, visitors, and visit bookings in the Poetry Slam Manager.
+  Call this agent when the user asks to list, search, count, or get details about poetry slams,
+  visitors, or bookings. Examples: "Show me all poetry slams", "List cancelled poetry slams",
+  "Which published poetry slams still have free seats?", "Show me poetry slams in October 2026",
+  "Show me visitors named Smith", "How many poetry slams are published?",
+  "Show the cheapest poetry slams in EUR ordered by price", "Who visited the Berlin slam?".
+
+target:
+  type: function
+  name: call_agent
+  parameters:
+    - name: contextId
+      value: $capability_context.contextId
+    - name: taskId
+      value: $capability_context.taskId
+
+capability_context:
+  - name: contextId
+    value: $target_result.contextId
+  - name: taskId
+    value: $target_result.taskId

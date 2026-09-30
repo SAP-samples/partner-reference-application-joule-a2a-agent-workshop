@@ -1,0 +1,12 @@
+schema_version: 3.28.0
+
+metadata:
+  namespace: joule.ext
+  name: psm_joule_agent_a2a
+  version: 1.0.0
+  display_name: "psm-joule-agent"
+  description: Poetry Slam Manager agent — query poetry slams, visitors, and visit bookings via SAP CAP MCP
+
+system_aliases:
+  PsmJouleAgent:
+    destination: PsmJouleAgent_A2A

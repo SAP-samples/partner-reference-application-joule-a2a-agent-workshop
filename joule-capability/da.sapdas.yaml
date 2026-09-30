@@ -1,0 +1,6 @@
+schema_version: 1.4.0
+name: psm_joule_agent_a2a
+capabilities:
+  - type: local
+    name: psm_joule_agent_a2a
+    folder: ./
