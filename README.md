@@ -1,3 +1,5 @@
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/partner-reference-application-joule-a2a-agent-workshop)](https://api.reuse.software/info/github.com/SAP-samples/partner-reference-application-joule-a2a-agent-workshop)
+
 # Joule A2A Agent — Partner Reference Application
 
 This repository contains the material for building a **Joule A2A (Agent-to-Agent) Agent** that connects SAP Joule to the multi-tenant CAP application using the A2A protocol and Model Context Protocol (MCP).
