@@ -258,6 +258,8 @@ cd litellm
 Create a file litellm_config.yaml file and add the below configuration
 
 ```yaml
+general_settings:
+  allow_requests_on_db_unavailable: true
 model_list:
   - model_name: claude-opus-4-8  # Name Claude Code will call locally
     litellm_params:

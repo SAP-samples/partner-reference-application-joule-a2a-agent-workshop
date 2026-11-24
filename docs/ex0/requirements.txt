@@ -79,6 +79,7 @@ pycparser==3.12
 pydantic-core==2.50.5
 pydantic-settings==2.16.3
 pydantic==2.14.4
+prisma==0.15.0
 pygments==2.21.0
 pyjwt==2.15.1
 pynacl==1.6.2
