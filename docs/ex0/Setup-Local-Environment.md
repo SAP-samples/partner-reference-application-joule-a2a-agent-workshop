@@ -63,7 +63,7 @@ Then install Claude Code:
 npm install -g @anthropic-ai/claude-code
 ```
 
-After installation, **close and reopen the terminal**, then verify:
+After installation, **close and reopen the terminal or VS Code if you are using integrated terminal**, then verify:
 
 ```bash
 claude --version
@@ -73,7 +73,7 @@ claude --version
 
 ## 4. Install Cloud Foundry CLI v8
 
-This is required for deploying applications to SAP BTP, Cloud Foundry environment. Download it from [https://github.com/cloudfoundry/cli/releases](https://github.com/cloudfoundry/cli/releases).
+This is required for deploying applications to SAP BTP, Cloud Foundry environment. Download it from [https://github.com/cloudfoundry/cli/releases](https://github.com/cloudfoundry/cli/releases). After installation, **close and reopen the terminal or VS Code if you are using integrated terminal**, then verify:
 
 ```bash
 cf --version
@@ -167,22 +167,31 @@ Open **PowerShell**:
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Restart PowerShell/Windows Terminal and verify:
+After installation, **close and reopen the terminal or VS Code if you are using integrated terminal**, then verify:
 
 ```powershell
 uv --version
 ```
 
-#### 2. Install Python 3.14
+#### 2. Install Python 3.14.5
 
 ```powershell
-uv python install 3.14
+uv python install 3.14.5
 ```
 
 Verify the installed Python versions:
 
 ```powershell
 uv python list
+```
+
+#### 3. Create .env File
+
+Create the `.env` file under `litellm` directory and paste the below variables.
+
+```text
+LITELLM_MASTER_KEY=sk-sap-dummy-key
+LITELLM_DANGEROUSLY_PERMIT_WEAK_OR_UNSET_MASTER_KEY=true
 ```
 
 </details>
@@ -213,16 +222,25 @@ Verify:
 uv --version
 ```
 
-#### 2. Install Python 3.14
+#### 2. Install Python 3.14.5
 
 ```bash
-uv python install 3.14
+uv python install 3.14.5
 ```
 
 Verify:
 
 ```bash
 uv python list
+```
+
+#### 3. Create .env File
+
+Create the `.env` file under `litellm` directory and paste the below variables.
+
+```text
+LITELLM_MASTER_KEY=sk-sap-dummy-key
+LITELLM_DANGEROUSLY_PERMIT_WEAK_OR_UNSET_MASTER_KEY=true
 ```
 
 </details>
@@ -274,6 +292,8 @@ Create a file run_proxy.py file and add the below configuration
 
 import os
 import sys
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 # 1. Force Pydantic to rebuild the specific chunk structures that crash mid-stream
 try:
@@ -287,7 +307,7 @@ except ImportError:
     pass
 
 # 2. Fix for Python 3.14 + uvloop incompatibility (Forces standard asyncio loop)
-os.environ["UVICORN_LOOP_TYPE"] = "asyncio"
+os.environ["LITELLM_EVENT_LOOP"] = "asyncio"
 
 # 3. Corrected import path for LiteLLM's server engine
 from litellm import run_server
@@ -299,28 +319,34 @@ if __name__ == "__main__":
 
 ```
 
+### Copy Requirements File
+
+Copy the [requirements.txt](./requirements.txt) file under `litellm` directory.
+
 ### Run the LiteLLM proxy server
 
 ```bash
-uvx --refresh --with "litellm[proxy],openai,pydantic>=2.9.0" python run_proxy.py
+uvx --python 3.14.5 --with-requirements requirements.txt python run_proxy.py
 ```
 
 ### Configure Claude Code
 
-Set the below environment variable or configure the claude setting directly
-
-```text
-ANTHROPIC_API_KEY="sk-sap-dummy-key"
-ANTHROPIC_BASE_URL="http://localhost:4000/"
-
-```
-
-Or
-
-Run below command in powershell to open the global claude code settings and update `ANTHROPIC_API_KEY="sk-sap-dummy-key"` and `ANTHROPIC_BASE_URL="http://localhost:4000/"`
+You can open your global Claude Code settings by running this command in PowerShell, or by opening the settings file directly:
 
 ```powershell
 notepad $HOME\.claude\settings.json
+```
+
+Copy paste the below configurations.
+
+```json
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-sap-dummy-key",
+    "ANTHROPIC_BASE_URL": "http://localhost:4000/",
+    "ANTHROPIC_MODEL": "claude-opus-4-8"
+  }
+}
 ```
 
 ### Run the Claude Code
@@ -330,6 +356,10 @@ Run the below command to start the claude code cli from your terminal/command pr
 ```bash
 claude
 ```
+
+> [!IMPORTANT]
+> When you are prompted to use api_key, choose `Yes`.
+>
 
 Test the claude code connection with the below prompt.
 
